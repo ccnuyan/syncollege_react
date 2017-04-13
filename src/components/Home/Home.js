@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'; //eslint-disable-line
-import Login from './Login';
-
 import Relay from 'react-relay';
+
+import Login from './Login';
 
 import Slogan from './Slogan';
 import Teams from './Teams';
