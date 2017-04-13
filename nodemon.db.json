@@ -1,0 +1,13 @@
+{
+    "verbose": true,
+    "execMap": {
+        "js": "babel-node"
+    },
+    "watch": [
+        "db/"
+    ],
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "delay": 1000
+}

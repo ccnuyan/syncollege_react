@@ -1,0 +1,296 @@
+type ActiveChannel implements Node {
+  # The ID of an object
+  id: ID!
+  channelDetail: Channel
+  channelEntries(after: String, first: Int, before: String, last: Int): channelEntriesConnection
+}
+
+type ActiveTeam implements Node {
+  # The ID of an object
+  id: ID!
+  teamDetail: Team
+  teamChannels(after: String, first: Int, before: String, last: Int): teamChannelsConnection
+}
+
+type Channel implements Node {
+  id: ID!
+  title: String
+  owner_email: String
+  owner_nickname: String
+  created_by: String
+  created_at: String
+  team_id: String
+  can_delete: Boolean
+}
+
+# A connection to a list of items.
+type channelEntriesConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [channelEntriesEdge]
+}
+
+# An edge in a connection.
+type channelEntriesEdge {
+  # The item at the end of the edge
+  node: Entry
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CreateChannelInput {
+  title: String!
+  clientMutationId: String
+}
+
+type CreateChannelPayload {
+  channelEdge: teamChannelsEdge
+  store: Store
+  clientMutationId: String
+}
+
+input CreateTeamInput {
+  title: String!
+  clientMutationId: String
+}
+
+type CreateTeamPayload {
+  teamEdge: myTeamsEdge
+  store: Store
+  clientMutationId: String
+}
+
+input DeleteChannelInput {
+  id: String!
+  team_id: String!
+  clientMutationId: String
+}
+
+type DeleteChannelPayload {
+  channelEdge: teamChannelsEdge
+  activeTeam: ActiveTeam
+  activeChannel: ActiveChannel
+  clientMutationId: String
+}
+
+input DeleteTeamInput {
+  id: String!
+  clientMutationId: String
+}
+
+type DeleteTeamPayload {
+  teamEdge: myTeamsEdge
+  store: Store
+  clientMutationId: String
+}
+
+type Entry implements Node {
+  id: ID!
+  title: String
+  content: String
+  entry_type: String
+  created_by: Member
+  channel: Channel
+  created_at: String
+  last_edit: String
+}
+
+type LastVisit implements Node {
+  # The ID of an object
+  id: ID!
+  team_id: String
+  channel_id: String
+  team_title: String
+  channel_title: String
+}
+
+input LocalLoginInput {
+  email: String!
+  password: String!
+  mode: String!
+  clientMutationId: String
+}
+
+type LocalLoginPayload {
+  store: Store
+  loginInfo: LoginInfo
+  clientMutationId: String
+}
+
+input LocalRegisterInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LocalRegisterPayload {
+  store: Store
+  registerInfo: RegisterInfo
+  clientMutationId: String
+}
+
+type LoginInfo implements Node {
+  # The ID of an object
+  id: ID!
+  user_id: String
+  email: String
+  display_name: String
+  success: Boolean
+  message: String
+  token: String
+}
+
+type Member implements Node {
+  id: ID!
+  content: String
+  email: String
+  display_name: String
+  user_for: String
+}
+
+type Mutation {
+  localLogin(input: LocalLoginInput!): LocalLoginPayload
+  localRegister(input: LocalRegisterInput!): LocalRegisterPayload
+  createTeam(input: CreateTeamInput!): CreateTeamPayload
+  deleteTeam(input: DeleteTeamInput!): DeleteTeamPayload
+  updateTeam(input: UpdateTeamInput!): UpdateTeamPayload
+  createChannel(input: CreateChannelInput!): CreateChannelPayload
+  deleteChannel(input: DeleteChannelInput!): DeleteChannelPayload
+  updateChannel(input: UpdateChannelInput!): UpdateChannelPayload
+  setActiveChannel(input: SetActiveChannelInput!): SetActiveChannelPayload
+}
+
+# A connection to a list of items.
+type myTeamsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [myTeamsEdge]
+}
+
+# An edge in a connection.
+type myTeamsEdge {
+  # The item at the end of the edge
+  node: Team
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  store: Store
+}
+
+type RegisterInfo implements Node {
+  # The ID of an object
+  id: ID!
+  new_id: String
+  validation_token: String
+  authentication_token: String
+  success: Boolean
+  message: String
+}
+
+input SetActiveChannelInput {
+  team_id: String
+  channel_id: String
+  clientMutationId: String
+}
+
+type SetActiveChannelPayload {
+  aTeam: ActiveTeam
+  aChannel: ActiveChannel
+  clientMutationId: String
+}
+
+type Store implements Node {
+  # The ID of an object
+  id: ID!
+  loginInfo: LoginInfo
+  registerInfo: RegisterInfo
+  lastVisit: LastVisit
+  myTeams(after: String, first: Int, before: String, last: Int): myTeamsConnection
+  activeTeam: ActiveTeam
+  activeChannel: ActiveChannel
+}
+
+type Team implements Node {
+  id: ID!
+  title: String
+  owner_email: String
+  owner_nickname: String
+  created_by: String
+  created_at: String
+}
+
+# A connection to a list of items.
+type teamChannelsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [teamChannelsEdge]
+}
+
+# An edge in a connection.
+type teamChannelsEdge {
+  # The item at the end of the edge
+  node: Channel
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input UpdateChannelInput {
+  id: String!
+  team_id: String!
+  title: String!
+  clientMutationId: String
+}
+
+type UpdateChannelPayload {
+  channel: Channel
+  clientMutationId: String
+}
+
+input UpdateTeamInput {
+  id: String!
+  title: String!
+  clientMutationId: String
+}
+
+type UpdateTeamPayload {
+  team: Team
+  store: Store
+  clientMutationId: String
+}
