@@ -1,5 +1,5 @@
 import GraphQLHTTP from 'express-graphql';
-import schema from '../schema/schema';
+import schema from '../../schema/schema';
 
 const loaders = {
 };
@@ -14,7 +14,6 @@ export default (args) => {
           message: error.message,
           stack: process.env.NODE_ENV === 'development' ? error.stack.split('\n') : null,
         };
-        console.log(formatted);
         return formatted;
       },
       context: {

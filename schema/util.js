@@ -1,7 +1,5 @@
-import epa from 'epa';
+import config from '../config';
 import jwt from 'jsonwebtoken';
-
-const config = epa.getEnvironment()._config;
 
 // server
 const setCookie = (req, res) => {

@@ -1,7 +1,5 @@
-import epa from 'epa';
 import expressJwt from 'express-jwt';
-
-const config = epa.getEnvironment()._config; // eslint-disable-line
+import config from '../../config';
 
 export default expressJwt({
   secret: config.auth.jwt.secret,

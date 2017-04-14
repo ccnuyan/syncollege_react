@@ -1,11 +1,13 @@
 import express from 'express';
 import http from 'http';
-import epa from 'epa';
+import path from 'path';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 
-import { pg } from './db/connector';
-import generateGraphqlSchema from './server/generateGraphqlSchema';
+import config from '../config';
+
+import { pg } from '../db/connector';
+import generateGraphqlSchema from './generateGraphqlSchema';
 import graphql from './middleware/graphql';
 
 import byPassAuth from './middleware/byPassAuth';
@@ -13,7 +15,7 @@ import renderer from './middleware/renderer';
 import io from './middleware/socket.io';
 import cors from './middleware/cors';
 
-import initdb from './db/init';
+import initdb from '../db/init';
 
 /* rotate the console. */
 const lines = process.stdout.getWindowSize()[1];
@@ -21,10 +23,6 @@ for (let i = 0; i < lines; i += 1) {
   console.log('\r\n');
 }
 /* rotate the console. */
-
-console.log(`Runnig in ${epa.getEnvironment().get('NODE_ENV')} mode...`);
-
-const config = epa.getEnvironment()._config;
 
 const app = express();
 const server = http.createServer(app);
@@ -36,8 +34,8 @@ const server = http.createServer(app);
 
     initdb(pPool, mPool);
 
-    app.use(express.static('./build/public'));
-    app.use(express.static('./public'));
+    app.use('/', express.static(path.join(__dirname, '../build/')));
+    app.use('/', express.static(path.join(__dirname, '../public/')));
 
     app.use(cors('*'));
 
@@ -49,7 +47,7 @@ const server = http.createServer(app);
       pPool,
     }));
 
-    app.get('/*', renderer);
+    app.get('/*', renderer());
 
     io(server, mPool, pPool);
 
