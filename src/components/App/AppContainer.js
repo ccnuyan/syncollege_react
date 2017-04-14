@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'; //eslint-disable-line
 import ioclient from 'socket.io-client';
 import Relay from 'react-relay';
 import useRelay from 'react-router-relay';
-import {browserHistory, Router, Route, applyRouterMiddleware, IndexRoute} from 'react-router';
+import { browserHistory, Router, Route, applyRouterMiddleware, IndexRoute } from 'react-router';
 
 import App from './App';
 import Home from '../Home/Home';
@@ -17,42 +17,50 @@ class AppContainerComponent extends Component {
 
   render = () => {
     const storeQueries = {
-      store: () => Relay.QL `query {    
+      store: () => Relay.QL`query {    
         store
       }`,
     };
     return (
       <Router
-          environment={Relay.Store}
-          history={browserHistory}
-          render={applyRouterMiddleware(useRelay)}>
+        environment={ Relay.Store }
+        history={ browserHistory }
+        render={ applyRouterMiddleware(useRelay) }
+      >
         <Route
-            component={App}
-            path="/"
-            queries={storeQueries}>
+          component={ App }
+          path="/"
+          queries={ storeQueries }
+        >
           <IndexRoute
-              component={Home}
-              queries={storeQueries}/>
+            component={ Home }
+            queries={ storeQueries }
+          />
           <Route
-              component={Home}
-              path="home"
-              queries={storeQueries}/>
+            component={ Home }
+            path="home"
+            queries={ storeQueries }
+          />
           <Route
-              component={Register}
-              path="register"
-              queries={storeQueries} />
+            component={ Register }
+            path="register"
+            queries={ storeQueries }
+          />
           <Route
-              component={Help}
-              path="help"/>
+            component={ Help }
+            path="help"
+          />
           <Route
-              component={TeamPage}
-              name="team_channel"
-              path="/team_channel"
-              queries={storeQueries} />
+            component={ TeamPage }
+            name="team_channel"
+            path="/team_channel"
+            queries={ storeQueries }
+          />
           <Route
-              component={Home}
-              path="*"
-              queries={storeQueries}/>
+            component={ Home }
+            path="*"
+            queries={ storeQueries }
+          />
         </Route>
       </Router>);
   }
@@ -77,7 +85,7 @@ const AppContainer = Relay.createContainer(AppContainerComponent, {
   },
   fragments: {
     store: () => Relay
-      .QL `
+      .QL`
       fragment on Store {
         ${App.getFragment('store')}
         ${Home.getFragment('store')}

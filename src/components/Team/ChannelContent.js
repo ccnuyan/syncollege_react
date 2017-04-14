@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';  //eslint-disable-line
+import React, { Component, PropTypes } from 'react';  //eslint-disable-line
 import Relay from 'react-relay';
 import _ from 'lodash';
 import TextField from 'material-ui/TextField';
@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
-import withWidth, {SMALL, MEDIUM, LARGE} from 'material-ui/utils/withWidth'; // eslint-disable-line
+import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; // eslint-disable-line
 import StylesProvider from '../Providers/StylesProvider';
 
 import Message from './Message';
@@ -37,7 +37,7 @@ class ChannelContent extends Component {
   }
 
   getStyles = () => {
-    const {width, styles, theme } = this.props;
+    const { width, styles, theme } = this.props;
     return {
       container: {
         ...styles.flexColumn,
@@ -105,70 +105,77 @@ class ChannelContent extends Component {
   render = () => {
     const entries = this.props.activeChannel.channelEntries.edges;
     const tempEntries = this.state.entries;
-    const {width, activeChannel} = this.props;
+    const { width, activeChannel } = this.props;
     const styles = this.getStyles();
     return (
       <Paper
-          style={styles.container}
-          zDepth={1}>
-          {width === SMALL
-            ? ''
-            : <Subheader style={styles.subHeader}>
-              {`$Current Channel: ${activeChannel.channelDetail.title}`}
-            </Subheader>}
-          <Divider />
-          <div style={styles.entries}>
-            {entries.map((edge) => {
-              const et = edge.node;
-              if (et.entry_type === 'message') {
-                return (
-                  <Message
-                      entry={et}
-                      key={et.id}
-                      self={this.props.store.loginInfo.user_id === et.created_by.id} />);
-              }
-              if (et.entry_type === 'post') {
-                return (
-                  <Message
-                      entry={et}
-                      key={et.id}
-                      self={this.props.store.loginInfo.user_id === et.created_by.id}/>);
-              }
-              return '';
-            })}
-            {tempEntries.map((et) => {
-              if (et.entry_type === 'message') {
-                return (
-                  <Message
-                      entry={et}
-                      key={et.id}
-                      self={this.props.store.loginInfo.user_id === et.created_by.id}/>);
-              }
-              if (et.entry_type === 'post') {
-                return (
-                  <Message
-                      entry={et}
-                      key={et.id}
-                      self={this.props.store.loginInfo.user_id === et.created_by.id}/>);
-              }
-              return '';
-            })}
-          </div>
-          <Divider />
-          <div style={styles.input}>
-            <TextField
-                hintText="input message"
-                onKeyPress={this.inputKeyPress}
-                ref={c => this.messageText = c}
-                style={styles.textField}
-                type="text"
-                underlineStyle={styles.underlineStyle}/>
-            <RaisedButton
-                label={'Send'}
-                onTouchTap={this.sendMessage}
-                primary
-                style={styles.send}/>
-          </div>
+        style={ styles.container }
+        zDepth={ 1 }
+      >
+        {width === SMALL
+          ? ''
+          : <Subheader style={ styles.subHeader }>
+            {`$Current Channel: ${activeChannel.channelDetail.title}`}
+          </Subheader>}
+        <Divider />
+        <div style={ styles.entries }>
+          {entries.map((edge) => {
+            const et = edge.node;
+            if (et.entry_type === 'message') {
+              return (
+                <Message
+                  entry={ et }
+                  key={ et.id }
+                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
+                />);
+            }
+            if (et.entry_type === 'post') {
+              return (
+                <Message
+                  entry={ et }
+                  key={ et.id }
+                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
+                />);
+            }
+            return '';
+          })}
+          {tempEntries.map((et) => {
+            if (et.entry_type === 'message') {
+              return (
+                <Message
+                  entry={ et }
+                  key={ et.id }
+                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
+                />);
+            }
+            if (et.entry_type === 'post') {
+              return (
+                <Message
+                  entry={ et }
+                  key={ et.id }
+                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
+                />);
+            }
+            return '';
+          })}
+        </div>
+        <Divider />
+        <div style={ styles.input }>
+          <TextField
+            hintText="input message"
+            onKeyPress={ this.inputKeyPress }
+            ref={ c => this.messageText = c }
+            style={ styles.textField }
+            type="text"
+            underlineStyle={ styles.underlineStyle }
+          />
+          <RaisedButton
+            label={ 'Send' }
+            onTouchTap={ this.sendMessage }
+            primary
+            style={ styles.send }
+          />
+        </div>
       </Paper>
     );
   }
@@ -176,7 +183,7 @@ class ChannelContent extends Component {
 
 ChannelContent = Relay.createContainer(StylesProvider(withWidth()(ChannelContent)), { //eslint-disable-line
   fragments: {
-    activeChannel: () => Relay.QL `
+    activeChannel: () => Relay.QL`
       fragment on ActiveChannel {
         channelDetail{
           id
@@ -199,7 +206,7 @@ ChannelContent = Relay.createContainer(StylesProvider(withWidth()(ChannelContent
         }   
       }
     `,
-    store: () => Relay.QL `
+    store: () => Relay.QL`
       fragment on Store {
         loginInfo{
           success

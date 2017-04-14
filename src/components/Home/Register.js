@@ -61,46 +61,51 @@ class Register extends Component {
     const registerInfo = this.props.store.registerInfo;
     return (
       <Paper
-          style={styles.paper}
-          zDepth={2}>
-          <div>
-              <h1>Register</h1>
-              <div style={styles.errorStyle}>
-                  {registerInfo.message}
-              </div>
-              <div>
-                  <div>
-                      <TextField
-                          floatingLabelText="Email"
-                          label="E-mail"
-                          ref={c => this.unInput = c}
-                          type="text"
-                          underlineStyle={styles.underlineStyle}/>
-                  </div>
-                  <div>
-                      <TextField
-                          floatingLabelText="Password"
-                          label="Password"
-                          ref={c => this.pw1Input = c}
-                          type="password"
-                          underlineStyle={styles.underlineStyle}/>
-                  </div>
-                  <div>
-                      <TextField
-                          floatingLabelText="Password Again"
-                          label="Password"
-                          ref={c => this.pw2Input = c}
-                          type="password"
-                          underlineStyle={styles.underlineStyle}/>
-                  </div>
-              </div>
-              <div>
-                  <RaisedButton
-                      label="OK"
-                      onTouchTap={this.onSubmit}
-                      primary/>
-              </div>
+        style={ styles.paper }
+        zDepth={ 2 }
+      >
+        <div>
+          <h1>Register</h1>
+          <div style={ styles.errorStyle }>
+            {registerInfo.message}
           </div>
+          <div>
+            <div>
+              <TextField
+                floatingLabelText="Email"
+                label="E-mail"
+                ref={ c => this.unInput = c }
+                type="text"
+                underlineStyle={ styles.underlineStyle }
+              />
+            </div>
+            <div>
+              <TextField
+                floatingLabelText="Password"
+                label="Password"
+                ref={ c => this.pw1Input = c }
+                type="password"
+                underlineStyle={ styles.underlineStyle }
+              />
+            </div>
+            <div>
+              <TextField
+                floatingLabelText="Password Again"
+                label="Password"
+                ref={ c => this.pw2Input = c }
+                type="password"
+                underlineStyle={ styles.underlineStyle }
+              />
+            </div>
+          </div>
+          <div>
+            <RaisedButton
+              label="OK"
+              onTouchTap={ this.onSubmit }
+              primary
+            />
+          </div>
+        </div>
       </Paper>);
   }
 }

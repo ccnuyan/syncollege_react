@@ -66,33 +66,36 @@ class Login extends Component {
     const loginInfo = this.props.store.loginInfo;
     return (
       <div>
+        <div>
+          {loginInfo.message}
+        </div>
+        <div>
           <div>
-              {loginInfo.message}
+            <TextField
+              floatingLabelText="Email"
+              label="E-mail"
+              ref={ c => this.unInput = c }
+              type="text"
+              underlineStyle={ styles.underlineStyle }
+            />
           </div>
           <div>
-              <div>
-                  <TextField
-                      floatingLabelText="Email"
-                      label="E-mail"
-                      ref={c => this.unInput = c}
-                      type="text"
-                      underlineStyle={styles.underlineStyle}/>
-              </div>
-              <div>
-                  <TextField
-                      floatingLabelText="Password"
-                      label="Password"
-                      ref={c => this.pwInput = c}
-                      type="password"
-                      underlineStyle={styles.underlineStyle}/>
-              </div>
+            <TextField
+              floatingLabelText="Password"
+              label="Password"
+              ref={ c => this.pwInput = c }
+              type="password"
+              underlineStyle={ styles.underlineStyle }
+            />
           </div>
-          <div>
-              <RaisedButton
-                  label="OK"
-                  onTouchTap={this.onSubmit}
-                  primary/>
-          </div>
+        </div>
+        <div>
+          <RaisedButton
+            label="OK"
+            onTouchTap={ this.onSubmit }
+            primary
+          />
+        </div>
       </div>
     );
   }

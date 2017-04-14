@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   getStyles = () => {
-    const {styles} = this.props;
+    const { styles } = this.props;
     return {
       app: {
         width: '100%',
@@ -38,12 +38,13 @@ class App extends Component {
   render() {
     const styles = this.getStyles();
     return (
-      <div style={styles.app}>
-          <Header
-              store={this.props.store}
-              style={styles.header}/>
-          <div style={styles.content}>
-              {this.props.children}
+      <div style={ styles.app }>
+        <Header
+              store={ this.props.store }
+              style={ styles.header }
+          />
+        <div style={ styles.content }>
+            {this.props.children}
           </div>
       </div>);
   }

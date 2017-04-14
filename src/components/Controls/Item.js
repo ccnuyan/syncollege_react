@@ -88,7 +88,7 @@ class Item extends Component {
   }
 
   getStyles = () => {
-    const {styles} = this.props;
+    const { styles } = this.props;
 
     return {
       active: styles.active,
@@ -110,55 +110,62 @@ class Item extends Component {
 
     const primaryText = this.state.mode === 'editing' ?
       (
-      <TextField
+        <TextField
           hintText="new title"
-          onBlur={this.onBlur}
-          onTouchTap={this.block}
-          ref={c => this.unInput = c}
-          style={styles.input}
-          type="text"/>) :
+          onBlur={ this.onBlur }
+          onTouchTap={ this.block }
+          ref={ c => this.unInput = c }
+          style={ styles.input }
+          type="text"
+        />) :
       (
-      <div ref={c => this.title = c}>
+        <div ref={ c => this.title = c }>
           {`${this.props.model[this.props.titlePath]}`}
-      </div>);
+        </div>);
 
     const iconButtonElement = (
-    <IconButton
+      <IconButton
         tooltip="options"
-        tooltipPosition="top-center">
-        <MoreVertIcon/>
-    </IconButton>);
+        tooltipPosition="top-center"
+      >
+        <MoreVertIcon />
+      </IconButton>);
 
     const rightIcon = this.state.mode === 'editing' ?
       (
-      <IconButton tooltip="confirm">
-          <CheckIcon onTouchTap={this.onUpdate}/>
-      </IconButton>) :
+        <IconButton tooltip="confirm">
+          <CheckIcon onTouchTap={ this.onUpdate } />
+        </IconButton>) :
       (
-      <IconMenu
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-          iconButtonElement={iconButtonElement}
-          style={styles.iconMenu}
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}>
+        <IconMenu
+          anchorOrigin={ { horizontal: 'right', vertical: 'top' } }
+          iconButtonElement={ iconButtonElement }
+          style={ styles.iconMenu }
+          targetOrigin={ { horizontal: 'right', vertical: 'top' } }
+        >
           <MenuItem
-              onTouchTap={this.onEdit}
-              primaryText="Edit"/>
+            onTouchTap={ this.onEdit }
+            primaryText="Edit"
+          />
           <MenuItem
-              onTouchTap={this.onDelete}
-              primaryText="Delete"/>
-          <Divider/>
+            onTouchTap={ this.onDelete }
+            primaryText="Delete"
+          />
+          <Divider />
           <MenuItem
-              onTouchTap={this.onCancel}
-              primaryText="Cancel"/>
-      </IconMenu>);
+            onTouchTap={ this.onCancel }
+            primaryText="Cancel"
+          />
+        </IconMenu>);
 
     return (
       <ListItem
-          onTouchTap={this.onEnter}
-          primaryText={primaryText}
-          ref={c => this.root = c}
-          rightIconButton={rightIcon}
-          style={this.props.active && this.state.mode !== 'editing' ? styles.active : styles.plain}/>
+        onTouchTap={ this.onEnter }
+        primaryText={ primaryText }
+        ref={ c => this.root = c }
+        rightIconButton={ rightIcon }
+        style={ this.props.active && this.state.mode !== 'editing' ? styles.active : styles.plain }
+      />
     );
   }
 }

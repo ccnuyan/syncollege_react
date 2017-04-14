@@ -23,26 +23,27 @@ class RelayBox extends Component {
 
   renderError = (error, retry) => {
     return (
-      <Paper zDepth={1}>
-          <div>
-              {error.message}
-              <button onTouchTap={retry}>
-                  Retry?
+      <Paper zDepth={ 1 }>
+        <div>
+          {error.message}
+          <button onTouchTap={ retry }>
+            Retry?
               </button>
-          </div>
+        </div>
       </Paper>
     );
   };
 
 
   render = () => (
-      <MuiThemeProvider muiTheme={this.props.theme}>
-          <Relay.RootContainer
-              Component={AppContainer}
-              renderError={this.renderError}
-              renderLoading={this.renderLoading}
-              route={new RootRoute()}/>
-      </MuiThemeProvider>)
+    <MuiThemeProvider muiTheme={ this.props.theme }>
+      <Relay.RootContainer
+        Component={ AppContainer }
+        renderError={ this.renderError }
+        renderLoading={ this.renderLoading }
+        route={ new RootRoute() }
+      />
+    </MuiThemeProvider>)
 }
 
 export default StylesProvider(RelayBox);

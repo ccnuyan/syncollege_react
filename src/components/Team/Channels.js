@@ -26,7 +26,7 @@ class Channels extends Component {
   };
 
   componentDidMount() {
-    const {router} = this.props;
+    const { router } = this.props;
 
     const team_id = router.location.query.team;
     const channel_id = router.location.query.channel;
@@ -41,7 +41,7 @@ class Channels extends Component {
     // const store = this.props.store;
     // const activeChannel = store.activeChannel;
 
-    const {router} = this.props;
+    const { router } = this.props;
     router.push({
       query: {
         team: team_id,
@@ -85,44 +85,48 @@ class Channels extends Component {
     const activeTeam = store.activeTeam;
     const activeChannel = store.activeChannel;
     const channels = activeTeam.teamChannels.edges;
-    const {width} = this.props;
+    const { width } = this.props;
 
     if (width === SMALL) {
       return (
         <div>
-            <RaisedButton
-                fullWidth
-                label={`Current: ${activeChannel.channelDetail.title || '...'}`}
-                onTouchTap={this.handleTouchTap}/>
-            <Popover
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                animation={PopoverAnimationVertical}
-                onRequestClose={this.handleRequestClose}
-                open={this.state.open}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}>
-                <Menu width={'100%'}>
-                    {channels.map(c => (<MenuItem key={c.node.id}>
-                                        <ChannelEach
-                                            activeChannel={activeChannel}
-                                            activeTeam={activeTeam}
-                                            channel={c.node}
-                                            setActiveChannel={this.setActiveChannel}/>
-                                        </MenuItem>))}
-                </Menu>
-            </Popover>
+          <RaisedButton
+            fullWidth
+            label={ `Current: ${activeChannel.channelDetail.title || '...'}` }
+            onTouchTap={ this.handleTouchTap }
+          />
+          <Popover
+            anchorEl={ this.state.anchorEl }
+            anchorOrigin={ { horizontal: 'left', vertical: 'bottom' } }
+            animation={ PopoverAnimationVertical }
+            onRequestClose={ this.handleRequestClose }
+            open={ this.state.open }
+            targetOrigin={ { horizontal: 'left', vertical: 'top' } }
+          >
+            <Menu width={ '100%' }>
+              {channels.map(c => (<MenuItem key={ c.node.id }>
+                <ChannelEach
+                  activeChannel={ activeChannel }
+                  activeTeam={ activeTeam }
+                  channel={ c.node }
+                  setActiveChannel={ this.setActiveChannel }
+                />
+              </MenuItem>))}
+            </Menu>
+          </Popover>
         </div>);
     }
     return (
       <div>
-          {channels.map(c => (
-             <ChannelEach
-                 activeChannel={activeChannel}
-                 activeTeam={activeTeam}
-                 channel={c.node}
-                 key={c.node.id}
-                 setActiveChannel={this.setActiveChannel}/>
-           ))}
+        {channels.map(c => (
+          <ChannelEach
+            activeChannel={ activeChannel }
+            activeTeam={ activeTeam }
+            channel={ c.node }
+            key={ c.node.id }
+            setActiveChannel={ this.setActiveChannel }
+          />
+        ))}
       </div>);
   }
 }

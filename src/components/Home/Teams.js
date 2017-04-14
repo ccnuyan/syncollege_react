@@ -37,41 +37,45 @@ class Teams extends Component {
   }
 
   render() {
-    const {lastVisit} = this.props.store;
-    const {router} = this.props;
+    const { lastVisit } = this.props.store;
+    const { router } = this.props;
 
     return (
-      <div style={{ alignSelf: 'center' }}>
-          <h3>Last visit:</h3>
-          <div>
-              <RaisedButton
-                  label={`${lastVisit.team_title}->${lastVisit.channel_title}`}
-                  onTouchTap={() => router.push(`/team_channel?channel=${lastVisit.channel_id}`)}
-                  primary/>
-          </div>
-          <h3>Favorate Teams:</h3>
-          <div>
-              <List>
-                  {this.props.store.myTeams.edges.map(c => (
-                     <TeamEach
-                         key={c.node.id}
-                         store={this.props.store}
-                         team={c.node}/>))}
-              </List>
-          </div>
-          <h3>Create New:</h3>
-          <div>
-              <TextField
-                  hintText="new team name"
-                  ref={c => this.newTeamTitle = c}
-                  type='text'/>
-              <FloatingActionButton
-                  mini
-                  onTouchTap={this.createTeam}
-                  zDepth={1}>
-                  <ContentAdd/>
-              </FloatingActionButton>
-          </div>
+      <div style={ { alignSelf: 'center' } }>
+        <h3>Last visit:</h3>
+        <div>
+          <RaisedButton
+            label={ `${lastVisit.team_title}->${lastVisit.channel_title}` }
+            onTouchTap={ () => router.push(`/team_channel?channel=${lastVisit.channel_id}`) }
+            primary
+          />
+        </div>
+        <h3>Favorate Teams:</h3>
+        <div>
+          <List>
+            {this.props.store.myTeams.edges.map(c => (
+              <TeamEach
+                key={ c.node.id }
+                store={ this.props.store }
+                team={ c.node }
+              />))}
+          </List>
+        </div>
+        <h3>Create New:</h3>
+        <div>
+          <TextField
+            hintText="new team name"
+            ref={ c => this.newTeamTitle = c }
+            type='text'
+          />
+          <FloatingActionButton
+            mini
+            onTouchTap={ this.createTeam }
+            zDepth={ 1 }
+          >
+            <ContentAdd />
+          </FloatingActionButton>
+        </div>
       </div>);
   }
 }
