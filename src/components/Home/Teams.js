@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import _ from 'lodash';
 

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 
 import Login from './Login';
@@ -12,11 +13,11 @@ class Home extends Component {
   }
 
   render() {
-    const {store} = this.props;
+    const { store } = this.props;
     return (
       <Slogan>
-          {this.props.store.loginInfo.success ?
-           <Teams store={store}/> : <Login store={this.props.store}/>}
+        {this.props.store.loginInfo.success ?
+          <Teams store={ store }/> : <Login store={ this.props.store }/>}
       </Slogan>);
   }
 }

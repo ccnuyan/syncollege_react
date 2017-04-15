@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import Paper from 'material-ui/Paper';
 import ChannelContent from './ChannelContent';
@@ -17,7 +18,7 @@ class TeamPage extends Component {
   }
 
   getStyles = () => {
-    const {width, styles} = this.props;
+    const { width, styles } = this.props;
     return {
       constainer: {
         width: '100%',
@@ -35,13 +36,14 @@ class TeamPage extends Component {
     const activeChannel = store.activeChannel;
     const styles = this.getStyles();
     return (
-      <div style={styles.constainer}>
-          <Paper style={styles.channels}>
-              <Channels store={store}/>
-          </Paper>
-          <ChannelContent
-              activeChannel={activeChannel}
-              store={store}/>
+      <div style={ styles.constainer }>
+        <Paper style={ styles.channels }>
+          <Channels store={ store }/>
+        </Paper>
+        <ChannelContent
+              activeChannel={ activeChannel }
+              store={ store }
+        />
       </div>
     );
   }

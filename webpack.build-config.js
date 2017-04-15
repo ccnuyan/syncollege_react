@@ -32,8 +32,11 @@ const config = {
     rules,
   },
   externals: {
-    react: 'React',
+    'react': 'React', // eslint-disable-line
     'react-dom': 'ReactDOM',
+    'react-router': 'ReactRouter',
+    'react-relay': 'Relay',
+    'socket.io-client': 'io',
   },
 };
 

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 
 import { withRouter } from 'react-router';
@@ -39,14 +40,15 @@ class TeamEach extends Component {
   }
 
   render() {
-    const {team} = this.props;
+    const { team } = this.props;
     return (
       <Item
-          model={team}
-          onDelete={this.onDelete}
-          onEnter={this.onEnter}
-          onUpdate={this.onUpdate}
-          titlePath={'title'}/>);
+          model={ team }
+          onDelete={ this.onDelete }
+          onEnter={ this.onEnter }
+          onUpdate={ this.onUpdate }
+          titlePath={ 'title' }
+      />);
   }
 }
 

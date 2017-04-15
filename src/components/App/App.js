@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { withRouter } from 'react-router';
 
@@ -42,10 +43,10 @@ class App extends Component {
         <Header
               store={ this.props.store }
               style={ styles.header }
-          />
+        />
         <div style={ styles.content }>
-            {this.props.children}
-          </div>
+          {this.props.children}
+        </div>
       </div>);
   }
 }

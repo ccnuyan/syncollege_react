@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';  //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import _ from 'lodash';
 import TextField from 'material-ui/TextField';
@@ -29,7 +30,7 @@ class ChannelContent extends Component {
   }
 
   componentDidMount() {
-    socket.on('send_message', (data) => {
+    window.socket.on('send_message', (data) => {
       this.setState({
         entries: _.union(this.state.entries, [data]),
       });
@@ -92,7 +93,7 @@ class ChannelContent extends Component {
       channel_id: activeChannel.channelDetail.id,
       created_by: this.props.store.loginInfo.user_id,
     };
-    socket.emit('send_message', body);
+    window.socket.emit('send_message', body);
     this.messageText.input.value = '';
   }
 

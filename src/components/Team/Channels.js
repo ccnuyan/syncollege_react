@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { withRouter } from 'react-router';
 
@@ -58,7 +59,7 @@ class Channels extends Component {
       },
     }), {
       onSuccess: (ret) => {
-        socket.emit('join_channel', {
+        window.socket.emit('join_channel', {
           channel: ret.setActiveChannel.aChannel.channelDetail.id,
         });
       },

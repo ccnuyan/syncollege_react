@@ -1,7 +1,10 @@
 export default {
   cdnScripts: {
-    react: '//cdn.bootcss.com/react/15.5.4/react.js',
-    'react-dom': 'https://cdn.bootcss.com/react/15.5.4/react-dom.js',
+    'react': '//cdn.bootcss.com/react/15.5.4/react.min.js', // eslint-disable-line
+    'react-dom': '//cdn.bootcss.com/react/15.5.4/react-dom.min.js',
+    'react-router': '//cdn.bootcss.com/react-router/3.0.0/ReactRouter.min.js',
+    'react-relay': '//cdn.bootcss.com/react-relay/0.10.0/relay.min.js',
+    'socket-io': '//cdn.bootcss.com/socket.io/1.7.3/socket.io.min.js',
   },
   title: 'Syncollege',
   massive: {

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React from 'react';
+
 class Footer extends React.Component {
   // onTouchTap = () => {
   //   this.decodedtext.value = atob(this.base64text.value);

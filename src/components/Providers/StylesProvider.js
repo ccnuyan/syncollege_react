@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import { PropTypes } from 'prop-types';
 import createProvider from 'react-provide-props';
 
 import styles from '../styles/';

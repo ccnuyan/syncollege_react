@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
-import ioclient from 'socket.io-client';
+import React, { Component } from 'react';
+import io from 'socket.io-client';
 import Relay from 'react-relay';
 import useRelay from 'react-router-relay';
 import { browserHistory, Router, Route, applyRouterMiddleware, IndexRoute } from 'react-router';
@@ -12,7 +12,7 @@ import Help from '../Common/Help';
 
 class AppContainerComponent extends Component {
   componentWillMount = () => {
-    window.socket = ioclient('/');
+    window.socket = io('/');
   }
 
   render = () => {

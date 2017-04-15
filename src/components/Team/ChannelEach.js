@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import _ from 'lodash';
 
@@ -19,7 +20,7 @@ class ChannelEach extends Component {
   }
 
   onEnter = () => {
-    const {channel} = this.props;
+    const { channel } = this.props;
     this.props.setActiveChannel(channel.team_id, channel.id);
   }
 
@@ -60,15 +61,16 @@ class ChannelEach extends Component {
   }
 
   render = () => {
-    const {channel, activeChannel} = this.props;
+    const { channel, activeChannel } = this.props;
     return (
       <Item
-          active={channel.id === activeChannel.channelDetail.id}
-          model={channel}
-          onDelete={this.onDelete}
-          onEnter={this.onEnter}
-          onUpdate={this.onUpdate}
-          titlePath={'title'}/>
+          active={ channel.id === activeChannel.channelDetail.id }
+          model={ channel }
+          onDelete={ this.onDelete }
+          onEnter={ this.onEnter }
+          onUpdate={ this.onUpdate }
+          titlePath={ 'title' }
+      />
     );
   }
 }

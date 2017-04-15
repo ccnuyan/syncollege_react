@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'; //eslint-disable-line
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import SvgIconFace from 'material-ui/svg-icons/action/face';
@@ -17,7 +18,7 @@ class Message extends Component {
   }
 
   getStyles = () => {
-    const {styles, theme, self} = this.props;
+    const { styles, theme, self } = this.props;
 
     return {
       message: {
@@ -42,21 +43,21 @@ class Message extends Component {
   }
 
   render() {
-    const {entry} = this.props;
+    const { entry } = this.props;
 
     const styles = this.getStyles();
 
     return (
-      <div style={styles.message}>
-          <Chip style={this.props.self ? styles.selfChip : styles.nonSelfChip}>
-              <Avatar icon={<SvgIconFace/>}/>
-              <div>
-                  {entry.created_by.email}
-              </div>
-          </Chip>
+      <div style={ styles.message }>
+        <Chip style={ this.props.self ? styles.selfChip : styles.nonSelfChip }>
+          <Avatar icon={ <SvgIconFace/> }/>
           <div>
-              {entry.content}
+            {entry.created_by.email}
           </div>
+        </Chip>
+        <div>
+          {entry.content}
+        </div>
       </div>
     );
   }
