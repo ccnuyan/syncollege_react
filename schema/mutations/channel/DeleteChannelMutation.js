@@ -33,7 +33,7 @@ export default mutationWithClientMutationId({
     },
     activeTeam: {
       type: ActiveTeamType,
-      resolve: (res, args, {req, pPool}) => {
+      resolve: (res, args, { req, pPool }) => {
         if (!req.user) {
           return atmFab();
         }
@@ -44,7 +44,7 @@ export default mutationWithClientMutationId({
     },
     activeChannel: {
       type: ActiveChannelType,
-      resolve: (res, args, {req, pPool}) => {
+      resolve: (res, args, { req, pPool }) => {
         if (!req.user) {
           return atcFab();
         }
@@ -55,7 +55,7 @@ export default mutationWithClientMutationId({
       },
     },
   },
-  mutateAndGetPayload: ({id, team_id}, {pPool, req}) => {
+  mutateAndGetPayload: ({ id, team_id }, { pPool, req }) => {
     return channel.delete_channel(pPool, {
       uid: req.user.id,
       tid: team_id,

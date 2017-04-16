@@ -20,7 +20,8 @@
     "db-install": "babel-node db/index install",
     "db-fulltest": "mocha --compilers js:babel-core/register,babel-polyfill --watch-extensions js,sql --ignore ./build/* ./db/services/*.test.js",
     "db-test": "mocha --compilers js:babel-core/register,babel-polyfill --watch-extensions js,sql --ignore ./build/*",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "eslint": "./node_modules/.bin/eslint ./**/*.js"
   },
   "pre-commit": "lint-staged",
   "lint-staged": {

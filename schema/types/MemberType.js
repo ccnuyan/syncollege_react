@@ -39,8 +39,8 @@ export const fabricator = (cn) => {
   return new Member(cn);
 };
 
-registerType(Member, MemberType, (id, {mPool}) => {
-  // const entries = await mPool.
-});
+// registerType(Member, MemberType, (id, { mPool }) => {
+//   // const entries = await mPool.
+// });
 
 export default MemberType;

@@ -21,7 +21,7 @@ const definition = connectionDefinitions({
 const connection = {
   type: definition.connectionType,
   args: connectionArgs,
-  resolve: (obj, args, {pPool, req}) => {
+  resolve: (obj, args, { pPool, req }) => {
     if (!req.user) {
       return connectionFromArray([], args);
     }

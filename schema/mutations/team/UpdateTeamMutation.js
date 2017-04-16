@@ -30,7 +30,7 @@ export default mutationWithClientMutationId({
       resolve: () => dataService.anonymousStore,
     },
   },
-  mutateAndGetPayload: ({id, title}, {pPool, req}) => {
+  mutateAndGetPayload: ({ id, title }, { pPool, req }) => {
     return team.update_team_title(pPool, {
       uid: req.user.id,
       id,

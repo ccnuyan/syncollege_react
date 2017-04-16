@@ -31,7 +31,7 @@ const EntryType = new GraphQLObjectType({
     },
     created_by: {
       type: MemberType,
-      resolve: (obj, args, {pPool}) => {
+      resolve: (obj, args, { pPool }) => {
         return member.get_member_by_id(pPool, {
           id: obj.created_by,
         }).then(res => memberFac(res.rows[0]));
@@ -59,8 +59,8 @@ export const fabricator = (cn) => {
   return new Entry(cn);
 };
 
-registerType(Entry, EntryType, (id, {mPool}) => {
+// registerType(Entry, EntryType, (id, { mPool }) => {
 
-});
+// });
 
 export default EntryType;

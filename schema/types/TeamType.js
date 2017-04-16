@@ -44,7 +44,7 @@ export const fabricator = (tm) => {
   return new Team(tm);
 };
 
-registerType(Team, TeamType, (id, {pPool}) => {
+registerType(Team, TeamType, (id, { pPool }) => {
   return team.get_team_by_id(pPool, {
     id,
   }).then(res => fabricator(res.rows[0]));

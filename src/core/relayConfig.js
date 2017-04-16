@@ -8,7 +8,7 @@ import { getLocalToken } from './util';
 const refresh = () => {
   Relay.injectNetworkLayer(new RelayNetworkLayer([
     urlMiddleware({
-      url: req => '/graphql',
+      url: () => '/graphql',
     }),
     // loggerMiddleware(),
     // gqErrorsMiddleware(),
@@ -21,7 +21,7 @@ const refresh = () => {
 
       forceRetry: (cb, delay) => {
         window.forceRelayRetry = cb;
-        console.log(`call forceRelayRetry() for immediately retry! Or wait ${delay} ms.`);
+        console.log(`call forceRelayRetry() for immediately retry! Or wait ${delay} ms.`); // eslint-disable-line no-console
       },
       statusCodes: [500, 503, 504],
     }),

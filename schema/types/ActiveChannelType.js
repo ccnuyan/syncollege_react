@@ -39,7 +39,7 @@ export const fabricator = (cn) => {
   });
 };
 
-registerType(ActiveChannel, ActiveChannelType, async (id, {pPool}) => {
+registerType(ActiveChannel, ActiveChannelType, async (id, { pPool }) => {
   return channel.get_channel_by_id(pPool, {
     id,
   }).then(res => fabricator(res.rows[0]));

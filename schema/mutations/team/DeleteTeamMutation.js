@@ -31,7 +31,7 @@ export default mutationWithClientMutationId({
       resolve: () => dataService.getStore(),
     },
   },
-  mutateAndGetPayload: ({id}, {req, pPool}) => {
+  mutateAndGetPayload: ({ id }, { req, pPool }) => {
     return team.delete_team(pPool, {
       uid: req.user.id,
       id,

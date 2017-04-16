@@ -28,7 +28,7 @@ export default mutationWithClientMutationId({
       type: RegisterInfoType,
     },
   },
-  mutateAndGetPayload: ({email, password}, {pPool}) => {
+  mutateAndGetPayload: ({ email, password }, { pPool }) => {
     return authentication.register(pPool, {
       email,
       password,

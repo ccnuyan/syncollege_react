@@ -28,7 +28,7 @@ export default mutationWithClientMutationId({
       },
     },
   },
-  mutateAndGetPayload: ({id, team_id, title}, {pPool, req}) => {
+  mutateAndGetPayload: ({ id, team_id, title }, { pPool, req }) => {
     return channel.update_channel_title(pPool, {
       uid: req.user.id,
       tid: team_id,

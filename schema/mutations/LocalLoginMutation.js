@@ -31,7 +31,7 @@ export default mutationWithClientMutationId({
       type: LoginInfoType,
     },
   },
-  mutateAndGetPayload: async ({email, password, mode}, {req, pPool}) => {
+  mutateAndGetPayload: async ({ email, password, mode }, { req, pPool }) => {
     if (mode === 'logout') {
       return {
         loginInfo: dataService.anonymousLoginInfo,

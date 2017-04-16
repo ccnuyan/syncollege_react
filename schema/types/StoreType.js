@@ -24,7 +24,7 @@ const StoreType = new GraphQLObjectType({
     id: globalIdField('Store'),
     loginInfo: {
       type: LoginInfoType,
-      resolve: (obj, args, {req, pPool}) => {
+      resolve: (obj, args, { req }) => {
         if (req.user) {
           /*
             authenticated, return req.user
@@ -38,14 +38,14 @@ const StoreType = new GraphQLObjectType({
     },
     registerInfo: {
       type: RegisterInfoType,
-      resolve: (obj) => {
+      resolve: () => {
         // always return anonymousRegisterInfo here
         return dataService.anonymousRegisterInfo;
       },
     },
     lastVisit: {
       type: LastVisitType,
-      resolve: async (_1, _2, {req, pPool}) => {
+      resolve: async (_1, _2, { req, pPool }) => {
         if (!req.user) {
           return {
             id: 'active',

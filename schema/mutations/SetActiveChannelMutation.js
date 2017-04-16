@@ -34,7 +34,7 @@ export default mutationWithClientMutationId({
       },
     },
   },
-  mutateAndGetPayload: async ({team_id, channel_id}, {req, pPool}) => {
+  mutateAndGetPayload: async ({ team_id, channel_id }, { req, pPool }) => {
     if (!req.user) {
       return {
         activeTeam: atmFab(),

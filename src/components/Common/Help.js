@@ -8,7 +8,7 @@ class Help extends Component {
   render = () => {
     return (
       <div>
-          <div dangerouslySetInnerHTML={{ __html: Links }}/>
+        <div dangerouslySetInnerHTML={ { __html: Links } }/>
       </div>);
   }
 }

@@ -50,7 +50,7 @@ export const fabricator = (cn) => {
   return new Channel(cn);
 };
 
-registerType(Channel, ChannelType, (id, {pPool}) => {
+registerType(Channel, ChannelType, (id, { pPool }) => {
   return channel.get_channel_by_id(pPool, {
     id,
   }).then(res => fabricator(res.rows[0]));

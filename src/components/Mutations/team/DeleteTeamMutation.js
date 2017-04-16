@@ -49,7 +49,7 @@ export default class extends Relay.Mutation {
   }
 
   getOptimisticResponse = () => {
-    console.log({
+    console.log({ // eslint-disable-line no-console
       id: this.props.input.id,
       title: 'deleting ...',
     });
