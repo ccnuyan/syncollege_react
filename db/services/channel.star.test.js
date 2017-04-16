@@ -69,7 +69,7 @@ describe('channel star', () => {
         }).then((res) => {
           changeResult2 = res.rows[0];
         }),
-      ]).catch(err => console.log(err));
+      ]);
     });
     it('with correct channel title', () => {
       assert.equal(title1, changeResult1.title);

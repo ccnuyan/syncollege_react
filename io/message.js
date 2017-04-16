@@ -30,7 +30,7 @@ import member from '../db/services/member';
 export default (io, mPool, pPool) => {
   io.sockets.on('connection', (socket) => {
     socket.on('join_channel', (event) => {
-      console.log({
+      console.log({ // eslint-disable-line
         join_channel: event,
         join_at: Date.now(),
       });
@@ -49,7 +49,7 @@ export default (io, mPool, pPool) => {
     });
 
     socket.on('leave_channel', (event) => {
-      console.log({
+      console.log({ // eslint-disable-line
         leave_channel: event,
         leave_at: Date.now(),
       });

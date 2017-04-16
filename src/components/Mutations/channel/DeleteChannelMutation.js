@@ -61,10 +61,6 @@ export default class extends Relay.Mutation {
   }
 
   getOptimisticResponse = () => {
-    console.log({
-      id: this.props.input.id,
-      title: 'deleting ...',
-    });
     return {
       channelEdge: {
         id: this.props.input.id,

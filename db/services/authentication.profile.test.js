@@ -7,10 +7,7 @@ let pool = null;
 
 describe('changing a password', () => {
   before(async () => {
-    return new Promise(async (res, rej) => {
-      pool = await helpers.initDb();
-      res();
-    });
+    pool = await helpers.initDb();
   });
   describe('with a valid old password', () => {
     let changeResult = null;
@@ -28,7 +25,6 @@ describe('changing a password', () => {
     });
   });
 });
-
 
 describe('profile', () => {
   before(async () => {

@@ -11,11 +11,10 @@
     "start": "export NODE_ENV=production && babel-node ./server/index.js",
     "server-dev": "export NODE_ENV=development && nodemon --config ./nodemon.server-dev.json ./server/index.js",
     "webpack-dev": "export NODE_ENV=development && webpack-dev-server --config=webpack.dev-config.js",
-    "webpack-build": "rm -r build | webpack --config=webpack.build-config.js && npm start",
-    "start-w": "set NODE_ENV=production && babel-node ./server/index.js",
     "server-dev-w": "set NODE_ENV=development && nodemon --config ./nodemon.server-dev.json ./server/index.js",
     "webpack-dev-w": "set NODE_ENV=development && webpack-dev-server --config=webpack.dev-config.js",
-    "webpack-build-w": "rm -r build | webpack --config=webpack.build-config.js && npm run start-w",
+    "start-w": "set NODE_ENV=production && babel-node ./server/index.js",
+    "webpack-build": "set NODE_ENV=production && rm -r build | webpack --config=webpack.build-config.js && npm run start-w",
     "db-dev": "nodemon --config nodemon.db.json ./db/index.js bi",
     "db-build": "babel-node db/index build",
     "db-install": "babel-node db/index install",
@@ -53,7 +52,6 @@
     "pg": "^6.1.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1",
     "simple-ssh": "^0.9.0",
     "socket.io": "^1.7.3",
     "transform-runtime": "0.0.0",
@@ -129,7 +127,7 @@
     "react-provide-props": "^2.0.3",
     "react-relay": "^0.10.0",
     "react-relay-network-layer": "^1.5.0",
-    "react-router": "^3.0.0",
+    "react-router": "^3.0.5",
     "react-router-relay": "^0.13.5",
     "react-styleable": "^2.2.4",
     "react-with-context": "^1.2.1",
@@ -192,6 +190,10 @@
         "error",
         160
       ],
+      "object-curly-spacing": [
+        2,
+        "always"
+      ],
       "import/no-extraneous-dependencies": 0,
       "arrow-body-style": 0,
       "no-return-assign": 0,
@@ -207,10 +209,7 @@
         2
       ],
       "id-length": 0,
-      "object-curly-spacing": [
-        2,
-        "always"
-      ]
+      "promise/always-return": 0
     }
   }
 }

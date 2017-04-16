@@ -11,7 +11,7 @@ export const registerType = (model, type, lookupFn) => {
 };
 
 export const getNode = (globalId) => {
-  const {type: typeName, id} = fromGlobalId(globalId);
+  const { type: typeName, id } = fromGlobalId(globalId);
   if (types[typeName]) {
     return types[typeName].lookupFn(id);
   }

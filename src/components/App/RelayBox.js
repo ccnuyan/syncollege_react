@@ -36,15 +36,17 @@ class RelayBox extends Component {
   };
 
 
-  render = () => (
-    <MuiThemeProvider muiTheme={ this.props.theme }>
-      <Relay.RootContainer
+  render = () => {
+    return (
+      <MuiThemeProvider muiTheme={ this.props.theme }>
+        <Relay.RootContainer
         Component={ AppContainer }
         renderError={ this.renderError }
         renderLoading={ this.renderLoading }
         route={ new RootRoute() }
-      />
-    </MuiThemeProvider>)
+        />
+      </MuiThemeProvider>);
+  }
 }
 
 export default StylesProvider(RelayBox);

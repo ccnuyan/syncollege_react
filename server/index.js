@@ -1,6 +1,7 @@
 import express from 'express';
 import http from 'http';
 import path from 'path';
+
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 
@@ -16,6 +17,8 @@ import io from './middleware/socket.io';
 import cors from './middleware/cors';
 
 import initdb from '../db/init';
+
+/* eslint-disable no-console*/
 
 /* rotate the console. */
 const lines = process.stdout.getWindowSize()[1];
@@ -47,7 +50,7 @@ const server = http.createServer(app);
       pPool,
     }));
 
-    app.get('/*', renderer());
+    app.get('/*', renderer('app'));
 
     io(server, mPool, pPool);
 
@@ -66,3 +69,5 @@ const server = http.createServer(app);
     console.log(err);
   }
 })();
+
+/* eslint-disable no-console*/

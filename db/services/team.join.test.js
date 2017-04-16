@@ -55,7 +55,7 @@ describe('team join', () => {
         }).then((res) => {
           changeResult2 = res.rows[0];
         }),
-      ]).catch(err => console.log(err));
+      ]);
     });
 
     it('with correct team title', () => {

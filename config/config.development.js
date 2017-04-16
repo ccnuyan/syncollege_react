@@ -1,7 +1,6 @@
 export default {
-  cdnScripts: {
-  },
   title: 'DEV',
+  port: 3000,
   massive: {
     connectionString: 'postgres://postgres:admin@localhost:32768/syncollege',
   },
@@ -26,5 +25,6 @@ export default {
   socket: {
     port: 4000,
   },
-  port: 3000,
+  cdnScripts: {
+  },
 };

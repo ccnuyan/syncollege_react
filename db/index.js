@@ -11,29 +11,29 @@ for (let i = 0; i < lines; i += 1) {
 
 program
   .command('build')
-  .description('Build the SQL files for our project')
+  .description('Build the sql file for our project')
   .action(() => {
-    console.log('Building now...');
+    console.log('building now...');
     builder.readSql();
-    console.log('File created');
+    console.log('sql script file created');
   });
 
 program
   .command('install')
-  .description('Build the SQL files for our project')
+  .description('build the SQL file for our project')
   .action(async () => {
-    console.log('Installing');
+    console.log('installing');
     await builder.install();
     console.log('done');
   });
 
 program
   .command('bi')
-  .description('Building and Installing the SQL files for our project')
+  .description('building and installing the sQL files for our project')
   .action(async () => {
     builder.readSql();
     await builder.install().catch(err => console.log(err));
-    console.log('Success');
+    console.log('success');
   });
 
 /* eslint-disable no-console */

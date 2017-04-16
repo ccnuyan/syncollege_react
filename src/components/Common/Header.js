@@ -18,7 +18,6 @@ import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; /
 import { clearToken } from '../../core/util';
 import m from '../Mutations';
 
-
 class Header extends Component {
 
   static propTypes = {

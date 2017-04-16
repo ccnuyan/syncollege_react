@@ -32,9 +32,6 @@ class Channels extends Component {
     const team_id = router.location.query.team;
     const channel_id = router.location.query.channel;
 
-    console.log(team_id);
-    console.log(channel_id);
-
     this.setActiveChannel(team_id, channel_id);
   }
 

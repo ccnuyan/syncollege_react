@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import PropTypes from 'prop-types';
 import assets from '../../build/assets.json';
 
 import config from '../../config/index';
@@ -7,6 +8,9 @@ import config from '../../config/index';
 const { cdnScripts } = config;
 
 class IndexComponent extends Component {
+  static propTypes = {
+    app: PropTypes.string.isRequired,
+  }
   render = () => {
     return (
       <html className="no-js" lang="zh-CN">
@@ -25,23 +29,23 @@ class IndexComponent extends Component {
           <link href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css" rel="stylesheet" />
           { Object.keys(assets).map(key => (
             <link href={ assets[key].css } key={ key } rel="stylesheet" />)) }
-          <script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js" />
+          {/* <script src="//cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js" />*/}
         </head>
         <body>
           <div id="react" />
           { Object.keys(cdnScripts).map(key => (
             <script key={ key } src={ cdnScripts[key] } />)) }
-          { Object.keys(assets).map(key => (
-            <script key={ key } src={ assets[key].js } />)) }
+          <script src={ assets.vendor.js } />
+          <script src={ assets[this.props.app].js } />
         </body>
       </html>
     );
   }
 }
 
-const renderer = () => {
+const renderer = (app) => {
   return (req, res) => {
-    const content = `<!doctype html>${ReactDOMServer.renderToStaticMarkup(<IndexComponent />)}`;
+    const content = `<!doctype html>${ReactDOMServer.renderToStaticMarkup(<IndexComponent app={ app }/>)}`;
     res.type('.html');
     res.send(content);
   };

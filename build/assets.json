@@ -1,6 +1,12 @@
 {
   "app": {
-    "js": "/assets/app.66c9476eec1a8229f37b.js",
-    "css": "/assets/style.66c9476eec1a8229f37b.css"
+    "js": "//localhost:8080/assets/index.js",
+    "css": "//localhost:8080/assets/style.css"
+  },
+  "app2": {
+    "js": "/assets/app2.0a3c173668f0b2a40ce0.js"
+  },
+  "vendor": {
+    "js": "/assets/vendor.0a3c173668f0b2a40ce0.js"
   }
 }
