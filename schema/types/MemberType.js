@@ -4,7 +4,7 @@ import { globalIdField, nodeDefinitions, fromGlobalId, mutationWithClientMutatio
 /* eslint-enable */
 
 import ndf from '../nodeDefinitions';
-import { registerType } from '../typeRegistry';
+// import { registerType } from '../typeRegistry';
 
 import Member from '../models/Member';
 
