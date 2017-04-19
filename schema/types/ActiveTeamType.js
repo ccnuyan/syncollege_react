@@ -9,6 +9,7 @@ import { registerType } from '../typeRegistry';
 import ActiveTeam from '../models/ActiveTeam';
 import TeamType from './TeamType';
 import team from '../../db/services/team';
+
 import teamChannels from './ChannelConnection';
 
 const ActiveTeamType = new GraphQLObjectType({
@@ -26,23 +27,32 @@ const ActiveTeamType = new GraphQLObjectType({
 export const fabricator = (tm) => {
   if (!tm || !tm.id) {
     return new ActiveTeam({
-      // id: 0,
+      id: 0,
       teamDetail: {
         id: 0,
       },
     });
   }
   return new ActiveTeam({
-    // id: tm.id,
+    id: tm.id,
     teamDetail: tm,
   });
 };
 
-
-registerType(ActiveTeam, ActiveTeamType, (id, { pPool }) => {
+export const getActiveTeam = (pPool, id) => {
+  if (!id) {
+    return fabricator();
+  }
   return team.get_team_by_id(pPool, {
     id,
-  }).then(res => fabricator(res.rows[0]));
+  }).then((res) => {
+    // todo the id is empty
+    return fabricator(res.rows[0]);
+  });
+};
+
+registerType(ActiveTeam, ActiveTeamType, (id, { pPool }) => {
+  return getActiveTeam(pPool, id);
 });
 
 export default ActiveTeamType;

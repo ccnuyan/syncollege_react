@@ -27,22 +27,32 @@ const ActiveChannelType = new GraphQLObjectType({
 export const fabricator = (cn) => {
   if (!cn || !cn.id) {
     return new ActiveChannel({
-      // id: 0,
+      id: 0,
       channelDetail: {
         id: 0,
       },
     });
   }
   return new ActiveChannel({
-    // id: cn.id,
+    id: cn.id,
     channelDetail: cn,
   });
 };
 
-registerType(ActiveChannel, ActiveChannelType, async (id, { pPool }) => {
+export const getActiveChannel = (pPool, id) => {
+  if (!id) {
+    return fabricator();
+  }
   return channel.get_channel_by_id(pPool, {
     id,
-  }).then(res => fabricator(res.rows[0]));
+  }).then((res) => {
+    // todo the id is empty
+    return fabricator(res.rows[0]);
+  });
+};
+
+registerType(ActiveChannel, ActiveChannelType, (id, { pPool }) => {
+  return getActiveChannel(pPool, id);
 });
 
 export default ActiveChannelType;

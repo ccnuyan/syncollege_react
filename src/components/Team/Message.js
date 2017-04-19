@@ -6,7 +6,7 @@ import SvgIconFace from 'material-ui/svg-icons/action/face';
 
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; //eslint-disable-line
 
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 
 class Message extends Component {
 
@@ -63,4 +63,4 @@ class Message extends Component {
   }
 }
 
-export default StylesProvider(Message);
+export default withStyles(Message);

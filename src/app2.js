@@ -11,4 +11,4 @@ import 'babel-polyfill';
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 
-ReactDOM.render(<div>Another Page</div>, document.getElementById('react'));
+ReactDOM.render(<div>App2 Page</div>, document.getElementById('react'));

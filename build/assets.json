@@ -1,12 +1,15 @@
 {
   "app": {
-    "js": "//localhost:8080/assets/index.js",
+    "js": "//localhost:8080/assets/app.js",
     "css": "//localhost:8080/assets/style.css"
   },
   "app2": {
-    "js": "/assets/app2.0a3c173668f0b2a40ce0.js"
+    "js": "//localhost:8080/assets/app2.js"
+  },
+  "app1": {
+    "js": "//localhost:8080/assets/app1.js"
   },
   "vendor": {
-    "js": "/assets/vendor.0a3c173668f0b2a40ce0.js"
+    "js": "//localhost:8080/assets/vendor.js"
   }
 }

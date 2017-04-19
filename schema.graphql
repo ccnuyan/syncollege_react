@@ -228,8 +228,7 @@ input SetActiveChannelInput {
 }
 
 type SetActiveChannelPayload {
-  aTeam: ActiveTeam
-  aChannel: ActiveChannel
+  store: Store
   clientMutationId: String
 }
 

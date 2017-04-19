@@ -9,12 +9,15 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; // eslint-disable-line
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
+import withIo from '../Providers/IoProvider';
 
 import Message from './Message';
 
 class ChannelContent extends Component {
   static propTypes = {
+    io: PropTypes.object.isRequired,
+    relay: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired,
     activeChannel: PropTypes.object.isRequired,
     width: PropTypes.number.isRequired,
@@ -22,20 +25,16 @@ class ChannelContent extends Component {
     theme: PropTypes.object.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      entries: [],
-    };
+  state = {
+    justPrevious: false,
+    justNext: true,
+    entriesPerPage: 7,
   }
 
-  componentDidMount() {
-    window.socket.on('send_message', (data) => {
-      this.setState({
-        entries: _.union(this.state.entries, [data]),
-      });
-    });
+  componentDidUpdate = () => {
+    this.messageScroller.scrollTop = this.messageScroller.scrollHeight;
   }
+
 
   getStyles = () => {
     const { width, styles, theme } = this.props;
@@ -54,7 +53,7 @@ class ChannelContent extends Component {
         alignItems: 'center',
         fontWeight: 'bold',
       },
-      entries: {
+      messageScroller: {
         flex: '1 1 100%',
         overflowY: 'auto',
         width: '100%',
@@ -78,6 +77,10 @@ class ChannelContent extends Component {
       underlineStyle: {
         borderColor: theme.palette.accent1Color,
       },
+      anchor: {
+        ...styles.flexRow,
+        ...styles.flexBetweenStretch,
+      },
     };
   }
 
@@ -93,7 +96,7 @@ class ChannelContent extends Component {
       channel_id: activeChannel.channelDetail.id,
       created_by: this.props.store.loginInfo.user_id,
     };
-    window.socket.emit('send_message', body);
+    this.props.io.sendMessage(body);
     this.messageText.input.value = '';
   }
 
@@ -103,9 +106,40 @@ class ChannelContent extends Component {
     }
   }
 
+  prevPage = () => {
+    this.props.relay.setVariables({
+      last: this.state.entriesPerPage,
+      before: this.props.activeChannel.channelEntries.pageInfo.startCursor,
+      after: null,
+      first: null,
+    },
+      () => {
+        this.setState({
+          justPrevious: true,
+          justNext: false,
+        });
+      },
+    );
+  }
+
+  nextPage = () => {
+    this.props.relay.setVariables({
+      first: this.state.entriesPerPage,
+      after: this.props.activeChannel.channelEntries.pageInfo.endCursor,
+      before: null,
+      last: null,
+    },
+      () => {
+        this.setState({
+          justPrevious: false,
+          justNext: true,
+        });
+      },
+    );
+  }
+
   render = () => {
     const entries = this.props.activeChannel.channelEntries.edges;
-    const tempEntries = this.state.entries;
     const { width, activeChannel } = this.props;
     const styles = this.getStyles();
     return (
@@ -119,28 +153,15 @@ class ChannelContent extends Component {
             {`$Current Channel: ${activeChannel.channelDetail.title}`}
           </Subheader>}
         <Divider />
-        <div style={ styles.entries }>
+        <div style={ styles.anchor }>
+          {this.props.activeChannel.channelEntries.pageInfo.hasPreviousPage || this.state.justNext ?
+            <RaisedButton onClick={ this.prevPage } >{'<'}</RaisedButton> : <div></div>}
+          {this.props.activeChannel.channelEntries.pageInfo.hasNextPage || this.state.justPrevious ?
+            <RaisedButton onClick={ this.nextPage } >{'>'}</RaisedButton> : <div></div>}
+        </div>
+        <div ref={ c => this.messageScroller = c } style={ styles.messageScroller }>
           {entries.map((edge) => {
             const et = edge.node;
-            if (et.entry_type === 'message') {
-              return (
-                <Message
-                  entry={ et }
-                  key={ et.id }
-                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
-                />);
-            }
-            if (et.entry_type === 'post') {
-              return (
-                <Message
-                  entry={ et }
-                  key={ et.id }
-                  self={ this.props.store.loginInfo.user_id === et.created_by.id }
-                />);
-            }
-            return '';
-          })}
-          {tempEntries.map((et) => {
             if (et.entry_type === 'message') {
               return (
                 <Message
@@ -182,7 +203,13 @@ class ChannelContent extends Component {
   }
 }
 
-ChannelContent = Relay.createContainer(StylesProvider(withWidth()(ChannelContent)), { //eslint-disable-line
+ChannelContent = Relay.createContainer(withIo(withStyles(withWidth()(ChannelContent))), { //eslint-disable-line
+  initialVariables: {
+    before: null,
+    after: null,
+    last: 7,
+    first: null,
+  },
   fragments: {
     activeChannel: () => Relay.QL`
       fragment on ActiveChannel {
@@ -190,8 +217,15 @@ ChannelContent = Relay.createContainer(StylesProvider(withWidth()(ChannelContent
           id
           title
         }
-        channelEntries(first:20){
+        channelEntries(last:$last, before:$before, first:$first, after:$after){
+          pageInfo{
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
           edges {
+            cursor
             node {
               id
               title

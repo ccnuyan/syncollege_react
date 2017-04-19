@@ -5,14 +5,7 @@ export default class extends Relay.Mutation {
     store: () => Relay.QL`
       fragment on Store {
         id
-        activeChannel{
-          id
-          channelDetail{
-            title
-          }
-        }
         activeTeam{
-          id
           teamDetail{
             title
           }
@@ -28,19 +21,23 @@ export default class extends Relay.Mutation {
   getFatQuery = () => {
     return Relay.QL`
       fragment on SetActiveChannelPayload {
-        aChannel{
-          channelDetail{
+        store{
+          activeChannel{
             id
-            title
+            channelDetail{
+              id
+              title
+            }
+            channelEntries
           }
-          channelEntries
-        }
-        aTeam{
-          teamDetail{
+          activeTeam{
             id
-            title
+            teamDetail{
+              id
+              title
+            }
+            teamChannels
           }
-          teamChannels
         }
       }
     `;
@@ -50,8 +47,8 @@ export default class extends Relay.Mutation {
     return [{
       type: 'FIELDS_CHANGE',
       fieldIDs: {
-        aChannel: this.props.store.activeChannel.id,
-        aTeam: this.props.store.activeTeam.id,
+        // activeTeam: `${this.props.store.activeTeam.id}`,
+        store: `${this.props.store.id}`,
       },
     }];
   }

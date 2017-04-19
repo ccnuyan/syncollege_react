@@ -8,8 +8,8 @@ import ndf from '../nodeDefinitions';
 import LoginInfoType from './LoginInfoType';
 import RegisterInfoType from './RegisterInfoType';
 
-import ActiveTeamType, { fabricator as atmFab } from './ActiveTeamType';
-import ActiveChannelType, { fabricator as acnFab } from './ActiveChannelType';
+import ActiveTeamType, { getActiveTeam } from './ActiveTeamType';
+import ActiveChannelType, { getActiveChannel } from './ActiveChannelType';
 import { fabricator as tmFab } from './TeamType';
 import { fabricator as cnFab } from './ChannelType';
 
@@ -32,7 +32,7 @@ const StoreType = new GraphQLObjectType({
           */
           return req.user;
         }
-          // not authenticated, return anonymousLoginInfo
+        // not authenticated, return anonymousLoginInfo
         return dataService.anonymousLoginInfo;
       },
     },
@@ -41,6 +41,19 @@ const StoreType = new GraphQLObjectType({
       resolve: () => {
         // always return anonymousRegisterInfo here
         return dataService.anonymousRegisterInfo;
+      },
+    },
+    myTeams: myTeams.connection,
+    activeTeam: {
+      type: ActiveTeamType,
+      resolve: (st, args, { pPool }) => {
+        return st.activeTeam ? getActiveTeam(pPool, st.activeTeam.id) : getActiveTeam();
+      },
+    },
+    activeChannel: {
+      type: ActiveChannelType,
+      resolve: async (st, args, { pPool }) => {
+        return st.activeChannel ? getActiveChannel(pPool, st.activeChannel.id) : getActiveChannel();
       },
     },
     lastVisit: {
@@ -65,19 +78,6 @@ const StoreType = new GraphQLObjectType({
           channel_id: ac.id,
           channel_title: ac.title,
         };
-      },
-    },
-    myTeams: myTeams.connection,
-    activeTeam: {
-      type: ActiveTeamType,
-      resolve: () => {
-        return atmFab();
-      },
-    },
-    activeChannel: {
-      type: ActiveChannelType,
-      resolve: () => {
-        return acnFab();
       },
     },
   }),

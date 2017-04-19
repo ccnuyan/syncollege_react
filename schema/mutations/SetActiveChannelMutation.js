@@ -6,8 +6,10 @@ import { globalIdField, nodeDefinitions, fromGlobalId, mutationWithClientMutatio
 import channel from '../../db/services/channel';
 import team from '../../db/services/team';
 
-import ActiveChannelType, { fabricator as acnFab } from '../types/ActiveChannelType';
-import ActiveTeamType, { fabricator as atmFab } from '../types/ActiveTeamType';
+import { fabricator as acnFab } from '../types/ActiveChannelType';
+import { fabricator as atmFab } from '../types/ActiveTeamType';
+
+import StoreType from '../types/StoreType';
 
 
 export default mutationWithClientMutationId({
@@ -21,16 +23,10 @@ export default mutationWithClientMutationId({
     },
   },
   outputFields: {
-    aTeam: {
-      type: ActiveTeamType,
+    store: {
+      type: StoreType,
       resolve: (res) => {
-        return res.activeTeam;
-      },
-    },
-    aChannel: {
-      type: ActiveChannelType,
-      resolve: (res) => {
-        return res.activeChannel;
+        return res;
       },
     },
   },
@@ -42,46 +38,40 @@ export default mutationWithClientMutationId({
       };
     }
 
+    let ac;
+    let at;
+
     if (channel_id) {
-      const ac = await channel.get_channel_by_id(pPool, {
+      ac = await channel.get_channel_by_id(pPool, {
         id: channel_id,
-      }).then(res => acnFab(res.rows[0]));
+      }).then(res => res.rows[0]);
 
-      const at = await team.get_team_by_id(pPool, {
-        id: ac.channelDetail.team_id,
+      at = await team.get_team_by_id(pPool, {
+        id: ac.team_id,
       }).then(res => atmFab(res.rows[0]));
-
-      return {
-        activeTeam: at,
-        activeChannel: ac,
-      };
     } else if (team_id) {
-      const ac = team.get_last_visit_team_channel(pPool, {
+      ac = team.get_last_visit_team_channel(pPool, {
         uid: req.user.id,
         tid: team_id,
-      }).then(res => acnFab(res.rows[0]));
+      }).then(res => res.rows[0]);
 
-      const at = await team.get_team_by_id(pPool, {
+      at = await team.get_team_by_id(pPool, {
         id: team_id,
       }).then(res => atmFab(res.rows[0]));
+    } else {
+      at = await team.get_last_visit_team(pPool, {
+        uid: req.user.id,
+      }).then(res => atmFab(res.rows[0]));
 
-      return {
-        activeTeam: at,
-        activeChannel: ac,
-      };
+      ac = await team.get_last_visit_team_channel(pPool, {
+        uid: req.user.id,
+        tid: at.id,
+      }).then(res => res.rows[0]);
     }
-    const at = await team.get_last_visit_team(pPool, {
-      uid: req.user.id,
-    }).then(res => atmFab(res.rows[0]));
-
-    const ac = await team.get_last_visit_team_channel(pPool, {
-      uid: req.user.id,
-      tid: at.teamDetail.id,
-    }).then(res => acnFab(res.rows[0]));
 
     return {
-      activeTeam: at,
-      activeChannel: ac,
+      activeTeam: { id: at.id },
+      activeChannel: { id: ac.id },
     };
   },
 });

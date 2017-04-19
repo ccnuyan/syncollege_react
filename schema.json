@@ -2574,24 +2574,12 @@
           "description": null,
           "fields": [
             {
-              "name": "aTeam",
+              "name": "store",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "ActiveTeam",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "aChannel",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ActiveChannel",
+                "name": "Store",
                 "ofType": null
               },
               "isDeprecated": false,

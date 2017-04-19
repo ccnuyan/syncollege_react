@@ -7,7 +7,7 @@ import Channels from './Channels';
 
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; //eslint-disable-line
 
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 
 class TeamPage extends Component {
 
@@ -49,7 +49,7 @@ class TeamPage extends Component {
   }
 }
 
-TeamPage = Relay.createContainer(StylesProvider(withWidth()(TeamPage)), { //eslint-disable-line
+TeamPage = Relay.createContainer(withStyles(withWidth()(TeamPage)), { //eslint-disable-line
   fragments: {
     store: () => Relay.QL`
       fragment on Store {

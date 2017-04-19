@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; //eslint-disable-line
 
 import Header from '../Common/Header';
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 
 class App extends Component {
   static propTypes = {
@@ -51,7 +51,7 @@ class App extends Component {
   }
 }
 
-App = Relay.createContainer(StylesProvider(withRouter(withWidth()(App))), { //eslint-disable-line
+App = Relay.createContainer(withStyles(withRouter(withWidth()(App))), { //eslint-disable-line
   fragments: {
     store: () => Relay.QL`
       fragment on Store{

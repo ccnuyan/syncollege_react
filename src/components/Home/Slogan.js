@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 
 const styles = {
   paper: {
@@ -33,4 +33,4 @@ class Slogan extends Component {
   }
 }
 
-export default StylesProvider(Slogan);
+export default withStyles(Slogan);

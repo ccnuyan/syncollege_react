@@ -12,7 +12,7 @@ import { ListItem } from 'material-ui/List';
 
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; // eslint-disable-line
 
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 
 class Item extends Component {
 
@@ -171,4 +171,4 @@ class Item extends Component {
   }
 }
 
-export default StylesProvider(Item);
+export default withStyles(Item);

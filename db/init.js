@@ -148,4 +148,31 @@ export default async (pPool, mPool) => {
     channel_id: channel1.id,
     created_by: ret1.rows[0].new_id,
   });
+
+  await mPool.collection('entries').insertOne({
+    content: 'you like youtube?',
+    entry_type: 'message',
+    created_at: new Timestamp(),
+    channel_id: channel1.id,
+    created_by: uid,
+  });
+
+
+  await mPool.collection('entries').insertOne({
+    content: 'ya, used to, but now i like syncollege',
+    entry_type: 'message',
+    created_at: new Timestamp(),
+    channel_id: channel1.id,
+    created_by: ret1.rows[0].new_id,
+  });
+
+
+  await mPool.collection('entries').insertOne({
+    content: 'syncollege is better',
+    entry_type: 'message',
+    created_at: new Timestamp(),
+    channel_id: channel1.id,
+    created_by: uid,
+  });
+
 };

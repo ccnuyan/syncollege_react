@@ -1,6 +1,7 @@
 import { fromGlobalId } from 'graphql-relay';
 
 export const types = {};
+export const pool = {};
 
 export const registerType = (model, type, lookupFn) => {
   types[type.name] = {
@@ -13,7 +14,7 @@ export const registerType = (model, type, lookupFn) => {
 export const getNode = (globalId) => {
   const { type: typeName, id } = fromGlobalId(globalId);
   if (types[typeName]) {
-    return types[typeName].lookupFn(id);
+    return types[typeName].lookupFn(id, pool);
   }
   return null;
 };

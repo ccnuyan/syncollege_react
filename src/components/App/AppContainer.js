@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
 import Relay from 'react-relay';
 import useRelay from 'react-router-relay';
 import { browserHistory, Router, Route, applyRouterMiddleware, IndexRoute } from 'react-router';
@@ -10,11 +9,9 @@ import TeamPage from '../Team/TeamPage';
 import Register from '../Home/Register';
 import Help from '../Common/Help';
 
-class AppContainerComponent extends Component {
-  componentWillMount = () => {
-    window.socket = io('/');
-  }
+import withIo from '../Providers/IoProvider';
 
+class AppContainerComponent extends Component {
   render = () => {
     const storeQueries = {
       store: () => Relay.QL`query {    
@@ -102,4 +99,4 @@ const AppContainer = Relay.createContainer(AppContainerComponent, {
   // }
 });
 
-export default AppContainer;
+export default withIo(AppContainer);

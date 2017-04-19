@@ -42,8 +42,8 @@ class Login extends Component {
       store,
       loginInfo,
       credential: {
-        email: this.unInput.input.value,
-        password: this.pwInput.input.value,
+        email: this.unInput.input.value || 'ccnuyan@qq.com',
+        password: this.pwInput.input.value || 'password',
         mode: 'login',
       },
     }),
@@ -55,10 +55,6 @@ class Login extends Component {
           if (info.success) {
             setLocalToken(info.token);
           }
-          Relay.Store.commitUpdate(new m.SetActiveChannelMutation({
-            store: this.props.store,
-            input: {},
-          }));
         },
       },
     );

@@ -3,6 +3,8 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLNon
 import { globalIdField, mutationWithClientMutationId, connectionDefinitions, connectionArgs, connectionFromPromisedArray, connectionFromArray } from 'graphql-relay';
 /* eslint-enable */
 
+import connectionFromMongoCursor from '../mongo/connectionFromMongoCursor';
+
 import EntryType from './EntryType';
 
 const definition = connectionDefinitions({
@@ -17,15 +19,14 @@ const connection = {
     if (!req.user) {
       return connectionFromArray([], args);
     }
-    if (args.channel_id) {
+    if (!obj.channelDetail.id) {
       return connectionFromArray([], args);
     }
-    return connectionFromPromisedArray(mPool.collection('entries').find({
-      // created_by: req.user.id,
+    const entryCursor = mPool.collection('entries').find({
       channel_id: obj.channelDetail.id,
-    }).toArray().then((res) => {
-      return res;
-    }), args);
+    });
+
+    return connectionFromMongoCursor(entryCursor, args);
   },
 };
 

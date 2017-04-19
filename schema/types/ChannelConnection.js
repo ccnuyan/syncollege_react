@@ -41,5 +41,4 @@ const connection = {
 export default {
   definition,
   connection,
-}
-;
+};

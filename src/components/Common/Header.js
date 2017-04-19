@@ -50,31 +50,31 @@ class Header extends Component {
   List = () => (
     <ToolbarGroup>
       <IconMenu
-                anchorOrigin={ { horizontal: 'right', vertical: 'top' } }
-                iconButtonElement={ <IconButton>
-                  <MoreVertIcon />
-                </IconButton> }
-                targetOrigin={ { horizontal: 'right', vertical: 'top' } }
+        anchorOrigin={ { horizontal: 'right', vertical: 'top' } }
+        iconButtonElement={ <IconButton>
+          <MoreVertIcon />
+        </IconButton> }
+        targetOrigin={ { horizontal: 'right', vertical: 'top' } }
       >
         <MenuItem
-                    onTouchTap={ () => this.props.router.push('/home') }
-                    primaryText="Home"
+          onTouchTap={ () => this.props.router.push('/home') }
+          primaryText="Home"
         />
         <MenuItem
-                    onTouchTap={ () => this.props.router.push('/register') }
-                    primaryText="Register"
+          onTouchTap={ () => this.props.router.push('/register') }
+          primaryText="Register"
         />
         <MenuItem
-                    onTouchTap={ () => this.props.router.push('/help') }
-                    primaryText="Help"
+          onTouchTap={ () => this.props.router.push('/help') }
+          primaryText="Help"
         />
         <MenuItem
-                    onTouchTap={ this.onLogout }
-                    primaryText="Sign out"
+          onTouchTap={ this.onLogout }
+          primaryText="Sign out"
         />
       </IconMenu>
     </ToolbarGroup>
-    );
+  );
 
   handleChange = (event, value) => {
     window.localStorage.setItem('mui_theme', value);
@@ -82,7 +82,7 @@ class Header extends Component {
   };
 
   handleTouchTap = (event) => {
-        // This prevents ghost click.
+    // This prevents ghost click.
     event.preventDefault();
     this.setState({
       open: true,
@@ -100,24 +100,24 @@ class Header extends Component {
     const loginInfo = this.props.store.loginInfo;
     return (<ToolbarGroup>
       <FlatButton
-                label={ `Theme: ${window.localStorage.getItem('mui_theme') === 'darkBaseTheme' ? 'Dark' : 'Light'}` }
-                onTouchTap={ this.handleTouchTap }
+        label={ `Theme: ${window.localStorage.getItem('mui_theme') === 'darkBaseTheme' ? 'Dark' : 'Light'}` }
+        onTouchTap={ this.handleTouchTap }
       >
         <Popover
-                    anchorEl={ this.state.anchorEl }
-                    anchorOrigin={ { horizontal: 'left', vertical: 'bottom' } }
-                    onRequestClose={ this.handleRequestClose }
-                    open={ this.state.open }
-                    targetOrigin={ { horizontal: 'left', vertical: 'top' } }
+          anchorEl={ this.state.anchorEl }
+          anchorOrigin={ { horizontal: 'left', vertical: 'bottom' } }
+          onRequestClose={ this.handleRequestClose }
+          open={ this.state.open }
+          targetOrigin={ { horizontal: 'left', vertical: 'top' } }
         >
           <Menu onChange={ this.handleChange }>
             <MenuItem
-                            primaryText="Light"
-                            value={ 'lightBaseTheme' }
+              primaryText="Light"
+              value={ 'lightBaseTheme' }
             />
             <MenuItem
-                            primaryText="Dark"
-                            value={ 'darkBaseTheme' }
+              primaryText="Dark"
+              value={ 'darkBaseTheme' }
             />
           </Menu>
         </Popover>
@@ -129,18 +129,18 @@ class Header extends Component {
         {loginInfo.success ? <FlatButton label={ loginInfo.display_name } /> : ''}
         {!loginInfo.success ? (
           <FlatButton
-                        label="Register"
-                        onTouchTap={ () => this.props.router.push('/register') }
+            label="Register"
+            onTouchTap={ () => this.props.router.push('/register') }
           />) : ''}
         <MenuItem
-                    onTouchTap={ () => this.props.router.push('/help') }
-                    primaryText="Help"
+          onTouchTap={ () => this.props.router.push('/help') }
+          primaryText="Help"
         />
         {loginInfo.success ? <Divider /> : ''}
         {loginInfo.success ? (
           <MenuItem
-                        onTouchTap={ this.onLogout }
-                        primaryText="Sign out"
+            onTouchTap={ this.onLogout }
+            primaryText="Sign out"
           />) : ''}
       </IconMenu>
     </ToolbarGroup>);
@@ -150,24 +150,24 @@ class Header extends Component {
     const loginInfo = this.props.store.loginInfo;
     return (<ToolbarGroup>
       <FlatButton
-                label={ `Theme: ${window.localStorage.getItem('mui_theme') === 'darkBaseTheme' ? 'Dark' : 'Light'}` }
-                onTouchTap={ this.handleTouchTap }
+        label={ `Theme: ${window.localStorage.getItem('mui_theme') === 'darkBaseTheme' ? 'Dark' : 'Light'}` }
+        onTouchTap={ this.handleTouchTap }
       >
         <Popover
-                    anchorEl={ this.state.anchorEl }
-                    anchorOrigin={ { horizontal: 'left', vertical: 'bottom' } }
-                    onRequestClose={ this.handleRequestClose }
-                    open={ this.state.open }
-                    targetOrigin={ { horizontal: 'left', vertical: 'top' } }
+          anchorEl={ this.state.anchorEl }
+          anchorOrigin={ { horizontal: 'left', vertical: 'bottom' } }
+          onRequestClose={ this.handleRequestClose }
+          open={ this.state.open }
+          targetOrigin={ { horizontal: 'left', vertical: 'top' } }
         >
           <Menu onChange={ this.handleChange }>
             <MenuItem
-                            primaryText="Light"
-                            value={ 'lightBaseTheme' }
+              primaryText="Light"
+              value={ 'lightBaseTheme' }
             />
             <MenuItem
-                            primaryText="Dark"
-                            value={ 'darkBaseTheme' }
+              primaryText="Dark"
+              value={ 'darkBaseTheme' }
             />
           </Menu>
         </Popover>
@@ -175,30 +175,30 @@ class Header extends Component {
       {loginInfo.success ? <FlatButton label={ loginInfo.display_name } /> : ''}
       {!loginInfo.success ? (
         <FlatButton
-                    label="Register"
-                    onTouchTap={ () => this.props.router.push('/register') }
+          label="Register"
+          onTouchTap={ () => this.props.router.push('/register') }
         />) : ''}
       {loginInfo.success ? (
         <FlatButton
-                    label="Sign out"
-                    onTouchTap={ this.onLogout }
+          label="Sign out"
+          onTouchTap={ this.onLogout }
         />) : ''}
       <FlatButton
-                label="Help"
-                onTouchTap={ () => this.props.router.push('/help') }
+        label="Help"
+        onTouchTap={ () => this.props.router.push('/help') }
       />
     </ToolbarGroup>);
   };
 
   render() {
-    const { loginInfo, lastVisit } = this.props.store;
+    const { loginInfo, activeTeam } = this.props.store;
     const { width, router } = this.props;
     return (
       <Toolbar>
         <ToolbarGroup firstChild>
           <ToolbarTitle
-                        onTouchTap={ () => router.push('/home') }
-                        text={ loginInfo.success ? `Syncollege.${lastVisit.team_title}` : 'Syncollege' }
+            onTouchTap={ () => router.push('/home') }
+            text={ loginInfo.success && activeTeam.teamDetail.title ? `Syncollege.${activeTeam.teamDetail.title}` : 'Syncollege' }
           />
         </ToolbarGroup>
         {width === MEDIUM ? this.Listed() : this.Stacked()}
@@ -217,8 +217,10 @@ Header = Relay.createContainer(withRouter(withWidth()(Header)), { //eslint-disab
           message
           display_name
         }      
-        lastVisit{
-          team_title
+        activeTeam{
+          teamDetail{
+            title
+          }
         }
       }
     `,

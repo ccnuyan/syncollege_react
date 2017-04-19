@@ -9,7 +9,8 @@
   },
   "watch": [
     "server/",
-    "build/"
+    "build/assets/",
+    "schema/"
   ],
   "env": {
     "NODE_ENV": "development"

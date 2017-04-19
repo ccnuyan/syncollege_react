@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover, { PopoverAnimationVertical } from 'material-ui/Popover';
 
 import withWidth, { SMALL, MEDIUM, LARGE } from 'material-ui/utils/withWidth'; //eslint-disable-line
+import withIo from '../Providers/IoProvider';
 
 import m from '../Mutations';
 import ChannelEach from './ChannelEach';
@@ -16,6 +17,7 @@ import ChannelEach from './ChannelEach';
 class Channels extends Component {
 
   static propTypes = {
+    io: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
     relay: PropTypes.object.isRequired,
@@ -36,8 +38,10 @@ class Channels extends Component {
   }
 
   setActiveChannel = (team_id, channel_id) => {
-    // const store = this.props.store;
-    // const activeChannel = store.activeChannel;
+    const store = this.props.store;
+    const activeChannel = store.activeChannel;
+
+    const oldChannelId = activeChannel.channelDetail.id;
 
     const { router } = this.props;
     router.push({
@@ -56,9 +60,7 @@ class Channels extends Component {
       },
     }), {
       onSuccess: (ret) => {
-        window.socket.emit('join_channel', {
-          channel: ret.setActiveChannel.aChannel.channelDetail.id,
-        });
+        this.props.io.joinChannel({ oldChannelId, newChannelId: ret.setActiveChannel.store.activeChannel.channelDetail.id });
       },
     });
   }
@@ -129,7 +131,7 @@ class Channels extends Component {
   }
 }
 
-Channels = Relay.createContainer(withRouter(withWidth()(Channels)), { //eslint-disable-line
+Channels = Relay.createContainer(withIo(withRouter(withWidth()(Channels))), { //eslint-disable-line
   fragments: {
     store: () => Relay.QL`
       fragment on Store {

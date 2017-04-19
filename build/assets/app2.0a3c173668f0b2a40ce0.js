@@ -1,1 +1,0 @@
-webpackJsonp([1],{1211:function(e,n,t){e.exports=t(507)},507:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=t(3),a=t.n(r),c=t(38),o=t.n(c),u=t(489),d=t.n(u),l=t(338);t.n(l);d()(),o.a.render(a.a.createElement("div",null,"Another Page"),document.getElementById("react"))}},[1211]);

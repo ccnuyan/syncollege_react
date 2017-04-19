@@ -1,11 +1,11 @@
 import { PropTypes } from 'prop-types';
 import createProvider from 'react-provide-props';
 
-import styles from '../../core/styles';
+import IOService from '../../core/IOService';
 
+const io = new IOService('/');
 export default createProvider('StylesProvider`', () => ({
-  ...styles,
+  io,
 }), {
-  styles: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  io: PropTypes.object.isRequired,
 });

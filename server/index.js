@@ -4,11 +4,13 @@ import path from 'path';
 
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
+import compression from 'compression';
 
 import config from '../config';
 
 import { pg } from '../db/connector';
 import generateGraphqlSchema from './generateGraphqlSchema';
+import { pool } from '../schema/typeRegistry';
 import graphql from './middleware/graphql';
 
 import byPassAuth from './middleware/byPassAuth';
@@ -35,13 +37,13 @@ const server = http.createServer(app);
     const pPool = await pg.connect();
     const mPool = await MongoClient.connect(config.mongo.url);
 
+    pool.mPool = mPool;
+    pool.pPool = pPool;
+
     initdb(pPool, mPool);
 
-    app.use('/', express.static(path.join(__dirname, '../build/')));
-    app.use('/', express.static(path.join(__dirname, '../public/')));
-
+    app.use(compression());
     app.use(cors('*'));
-
     app.use(bodyParser.json());
 
     app.use('/graphql', byPassAuth(pPool));
@@ -50,7 +52,10 @@ const server = http.createServer(app);
       pPool,
     }));
 
-    app.get('/*', renderer('app'));
+    app.use('/', express.static(path.join(__dirname, '../build/')));
+    app.use('/', express.static(path.join(__dirname, '../public/')));
+    app.get('/:app', renderer);
+    app.get('/', renderer);
 
     io(server, mPool, pPool);
 

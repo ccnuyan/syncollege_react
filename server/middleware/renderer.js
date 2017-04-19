@@ -43,12 +43,11 @@ class IndexComponent extends Component {
   }
 }
 
-const renderer = (app) => {
-  return (req, res) => {
-    const content = `<!doctype html>${ReactDOMServer.renderToStaticMarkup(<IndexComponent app={ app }/>)}`;
-    res.type('.html');
-    res.send(content);
-  };
+const renderer = (req, res) => {
+  const app = assets[req.params.app] ? req.params.app : 'app';
+  const content = `<!doctype html>${ReactDOMServer.renderToStaticMarkup(<IndexComponent app={ app }/>)}`;
+  res.type('.html');
+  res.send(content);
 };
 
 export default renderer;

@@ -5,7 +5,7 @@ import Relay from 'react-relay';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 
-import StylesProvider from '../Providers/StylesProvider';
+import withStyles from '../Providers/StylesProvider';
 import AppContainer from './AppContainer';
 
 class RootRoute extends Relay.Route {
@@ -49,4 +49,4 @@ class RelayBox extends Component {
   }
 }
 
-export default StylesProvider(RelayBox);
+export default withStyles(RelayBox);
